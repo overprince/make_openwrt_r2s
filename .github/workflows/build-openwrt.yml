@@ -185,6 +185,7 @@ jobs:
       with:
         retain_days: 1
         keep_minimum_runs: 3
+        token: ${{ secrets.AUTH_PAT }}
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.1.0
