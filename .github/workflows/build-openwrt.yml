@@ -68,7 +68,7 @@ jobs:
         prefix: ${{ github.workspace }}/openwrt
         toolchain: 'true'
         skip: 'true'
-        clean: 'true'
+        clean: 'false'
 
     - name: Load custom feeds
       run: |
