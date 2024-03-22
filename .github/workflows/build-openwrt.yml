@@ -35,7 +35,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout
@@ -47,6 +47,7 @@ jobs:
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
+        sudo -E apt-get -qq full-upgrade
         sudo -E apt-get -qq install $(curl -fsSL https://raw.githubusercontent.com/overprince/make_openwrt_r2s/main/depends-ubuntu-2004)      
         sudo -E apt-get -qq install python3-pyelftools
         sudo -E apt-get -qq autoremove --purge
@@ -61,15 +62,6 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-    
-    - name: Cache
-      uses: klever1988/cachewrtbuild@main
-      with:
-        ccache: 'true'
-        prefix: ${{ github.workspace }}/openwrt
-        toolchain: 'true'
-        skip: 'true'
-        clean: 'false'
 
     - name: Load custom feeds
       run: |
